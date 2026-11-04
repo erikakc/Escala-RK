@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase, variaveisConfiguradas } from "@/lib/supabase";
 
@@ -36,13 +37,17 @@ export default function Inicio() {
 
   return (
     <div className="space-y-5">
-      <section className="cartao">
-        <h1 className="text-2xl font-bold">Sistema de escala, pronto para construir</h1>
-        <p className="mt-2 text-neutral-700">
-          Este é o ponto de partida. A estrutura, o banco de dados e a publicação já
-          estão configurados. As telas da escala serão criadas por você, com a IA,
-          durante a aula.
-        </p>
+      <section className="cartao space-y-3">
+        <h1 className="text-2xl font-bold">Escala da equipe</h1>
+        <p className="text-neutral-700">Monte a escala da semana e mantenha a equipe atualizada.</p>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <Link href="/escala" className="botao flex-1">
+            Escala da semana
+          </Link>
+          <Link href="/equipe" className="botao-secundario flex-1">
+            Equipe
+          </Link>
+        </div>
       </section>
 
       <section className="cartao">
@@ -50,21 +55,21 @@ export default function Inicio() {
         {estado.tipo === "carregando" && <p className="mt-2 text-neutral-600">Verificando...</p>}
         {estado.tipo === "sem-variaveis" && (
           <p className="mt-2 text-red-700">
-            As variáveis do Supabase não foram configuradas. Na Vercel, em Settings &gt;
-            Environment Variables, adicione NEXT_PUBLIC_SUPABASE_URL e
-            NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (ou ANON_KEY) e faça Redeploy.
+            As variáveis do Supabase não foram configuradas. Na Vercel, em Settings &gt; Environment
+            Variables, adicione NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (ou
+            ANON_KEY) e faça Redeploy.
           </p>
         )}
         {estado.tipo === "erro" && (
           <p className="mt-2 text-red-700">
-            Banco conectado, mas as tabelas não responderam. Rode o arquivo
-            supabase/schema.sql no SQL Editor do Supabase. Detalhe: {estado.mensagem}
+            Banco conectado, mas as tabelas não responderam. Rode o arquivo supabase/schema.sql no
+            SQL Editor do Supabase. Detalhe: {estado.mensagem}
           </p>
         )}
         {estado.tipo === "ok" && (
           <p className="mt-2 text-green-700">
             Banco conectado. {estado.funcionarios} funcionários e {estado.turnos} turnos
-            cadastrados. Tudo pronto para a Entrega 1.
+            cadastrados.
           </p>
         )}
       </section>
